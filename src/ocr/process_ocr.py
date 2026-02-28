@@ -1,10 +1,4 @@
-import sqlite3
-from ocr.scanner import Scanner
-
-class Writer:
-    con = sqlite3.connect("database/staubsauger.db")
-    image_dir = "/home/furukawa/programming/staub/src/images/cropped"
-
+class ProcessOcr:
 
     @classmethod
     def clean_ocr_output(cls, strlist: list[str]) -> list[str]:
@@ -31,16 +25,4 @@ class Writer:
                 company_names.append(t)
         return company_names
 
-    @classmethod
-    def commit(con):
-        cur = con.cursor()
-
-
-dir = "/home/furukawa/programming/staub/src/images/cropped"
-image = "/home/furukawa/programming/staub/src/images/cropped/E05-2-cropped.jpg"
-scanner = Scanner(dir, image)
-string = scanner.scan_image()
-cleaned_string =  Writer.clean_ocr_output(string)
-company_names = Writer.get_likely_companynames(cleaned_string)
-print(company_names)
 
