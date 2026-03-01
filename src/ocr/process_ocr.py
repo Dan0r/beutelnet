@@ -7,12 +7,20 @@ class ProcessOcr:
             "JMALLFLRLR",
             "GEEIGNET",
             "(0)",
-            "_ M&"
+            "_ M&",
+            "FOLGENDE",
+            "MAX 4L",
+            "S-BA"
+            "STANDARD-BAG",
+            "S-BA",
+            "GREEN",
+            "STANDARD",
+            "POWER"
         ]
         # Remove whitespace, comma, specific words
         clean_strlist = [
             s for s in strlist
-            if s.strip() and s.strip() != "," and not any(t in s.upper() for t in text_anomalies)
+            if s.strip() and s.strip() != "," and len(s) > 3 and not any(t in s.upper() for t in text_anomalies)
         ]
         return clean_strlist 
     
@@ -24,5 +32,3 @@ class ProcessOcr:
             if t.isupper():
                 company_names.append(t)
         return company_names
-
-

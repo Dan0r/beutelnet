@@ -1,21 +1,21 @@
 from PIL import Image
 import pytesseract
 import os
+from ocr.process_ocr import ProcessOcr
 
-class ProcessImage:
+class ProcessImages:
     """
     Static Settings for Tesseract: 
     psm 4: Assume a single column of text of variable sizes.
     """
-    source = "/home/furukawa/programming/staub/src/images/original"
-    destination = "/home/furukawa/programming/staub/src/images/cropped"
-
-    custom_psm_setting = '--psm 4'
+    custom_psm_setting = '--psm 11'
     lang = 'deu'
 
-    def __init__(self, image_directory, image_path=None):
-        self.directory = image_directory
-        self.image_path= image_path
+    def __init__(self, directory, source=None, destination=None, image_path=None):
+        self.directory = directory
+        self.source = source
+        self.destination = destination
+        self.image_path = image_path
 
     def __repr__(self):
         return f"Image Path: {self.image_path}"
@@ -24,31 +24,50 @@ class ProcessImage:
         string = pytesseract.image_to_string(Image.open(self.image_path), config=self.custom_psm_setting)
         return string.splitlines()
 
-    """Returns: [supermarket_name, bag_size, bag_names] """
-    def scan_dir(self) -> list[str]:
-        string = ""
+    """Retreive supermarket name and size from the image name"""
+    def _parse_filename(self, image_path: str) -> tuple[str, str]:
+        filename = os.path.basename(image_path)
+        supermarket_name, bag_name = filename.split("-")[:2]
+        return supermarket_name, bag_name
+
+
+    """Extract text from image and clean data according to ProcessOcr module"""
+    def _ocr_text(self, path: str) -> list[str]:
+        text = pytesseract.image_to_string(
+            Image.open(path),
+            config=self.custom_psm_setting,
+            lang=self.lang
+        )
+        text = text.splitlines()
+        text = ProcessOcr.clean_ocr_output(text)
+        return text
+
+    """Scans directory for images and returns dictionary of the vacuum name, supermarket name and bagsize"""
+    def scan_dir(self) -> list[dict[str, str]]:
+        result = [] 
         for roots, dirs, files in os.walk(self.directory):
             for file in files:
-                supermarket_name = file.split("-")[0]
-                bag_name = file.split("-")[1]
-                print(supermarket_name, bag_name)
+                print(f"Processing: {file}")
+                # Get supermarket, bagsize and text of the image
+                supermarket_name, bag_name = self._parse_filename(file)
+                text = self._ocr_text(os.path.join(roots, file))
 
-                path = os.path.join(roots, file)
-                text = pytesseract.image_to_string(
-                    Image.open(path),
-                    config=self.custom_psm_setting,
-                    lang=self.lang
-                )
-                string += text
+                # Push data into dictionary
+                for item in text: 
+                    result.append({
+                        "supermarket": supermarket_name,
+                        "bag:": bag_name,
+                        "text:": item 
+                    })
+        return result
+        
 
-        # Prepend supermarket and bag name
-        return [supermarket_name, bag_name] + string.splitlines()
+image_directory = "/home/furukawa/programming/staub/src/images/preprocessed"
 
-source = "/home/furukawa/programming/staub/src/images/original"
-processor = ProcessImage(source)
+processor = ProcessImages(image_directory)
 bag_names = processor.scan_dir()
-print(bag_names)
-
-
-
-    ## Needs to return the size and supermarketname too
+for b in bag_names:
+    print(b)
+# cleaned = ProcessOcr.clean_ocr_output(bag_names)
+# company = ProcessOcr.get_likely_companynames(cleaned)
+# print(company)
