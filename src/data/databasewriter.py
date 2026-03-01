@@ -6,14 +6,13 @@ class DatabaseWriter:
     con = sqlite3.connect("database/staubsauger.db")
     image_dir = "/home/furukawa/programming/staub/src/images/cropped"
 
+    # Gets dictionary from .scan_dir()
+    # Pushes data into datbase
+
 
     @classmethod
     def commit(cls):
         cur = cls.con.cursor()
-
-
-
-
         print("Commited data.")
 
 
@@ -22,14 +21,6 @@ class DatabaseWriter:
             size text, 
             supermarket text
         )""")
-
-
-    """Takes cleaned ocr output and transforms into tuples"""
-    @classmethod
-    def create_tuples(self):
-        ProcessImage()
-
-        takes 
 
 
 

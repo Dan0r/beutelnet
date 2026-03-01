@@ -3,7 +3,7 @@ import pytesseract
 import os
 from ocr.process_ocr import ProcessOcr
 
-class ProcessImages:
+class ProcessImage:
     """
     Static Settings for Tesseract: 
     psm 4: Assume a single column of text of variable sizes.
@@ -60,14 +60,3 @@ class ProcessImages:
                         "text:": item 
                     })
         return result
-        
-
-image_directory = "/home/furukawa/programming/staub/src/images/preprocessed"
-
-processor = ProcessImages(image_directory)
-bag_names = processor.scan_dir()
-for b in bag_names:
-    print(b)
-# cleaned = ProcessOcr.clean_ocr_output(bag_names)
-# company = ProcessOcr.get_likely_companynames(cleaned)
-# print(company)

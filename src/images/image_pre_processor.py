@@ -1,0 +1,58 @@
+from PIL import Image, ImageOps
+import os
+
+# Iterate over files in folder
+class PreProcessor:
+
+    """Takes images from directory, splits them and places them inside the specified directory"""
+    def __init__(self, directory, new_directory):
+        # Check if directory valid
+        if not os.path.isdir(directory):
+            print("Path not found.")
+
+        self.directory = directory 
+        self.new_directory = new_directory
+
+    def preprocess(self):
+        self._split_images()
+
+        self._grayscale()
+
+    """Split double column image into two single column images"""
+    def _split_images(self):
+        dir = self.directory
+        # Specify offset of the placement of the midpoint
+        offset = -15 
+
+        # Walk into image folder and split images
+        counter = 0
+        for root, dirs, files in os.walk(dir):
+            for file in files:
+                file_path = self.directory + "/" + file
+                # Calculate image's bounding box and split at its midpoint 
+                image = Image.open(file_path)
+                width, height = image.size
+                midpoint = width / 2 - offset
+
+                # Crop left half of the image
+                left_bbox = (0, 0, midpoint, height)
+                left_crop = image.crop(left_bbox)
+                left_crop.save(self.new_directory + file.replace(".jpg", "") + "-left-crop" + ".jpg")
+
+                # Crop right half of the image
+                right_bbox = (midpoint, 0, width, height)
+                right_crop = image.crop(right_bbox)
+                right_crop.save(self.new_directory + file.replace(".jpg", "") + "-right-crop" + ".jpg")
+
+                counter += 2
+        print("Images cropped:" + str(counter) )
+
+    """Grayscale images for better OCR results"""
+    def _grayscale(self):
+        for root, dirs, files in os.walk(self.new_directory):
+            for file in files:
+                image_path = os.path.join(root, file)
+                image = Image.open(os.path.join(image_path))
+                print(root, file)
+                gray_image = ImageOps.grayscale(image)
+                gray_image.save(self.new_directory + file)

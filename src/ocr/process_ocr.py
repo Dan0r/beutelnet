@@ -15,13 +15,15 @@ class ProcessOcr:
             "S-BA",
             "GREEN",
             "STANDARD",
-            "POWER"
+            "POWER",
+            "(MAX 4L"
         ]
         # Remove whitespace, comma, specific words
         clean_strlist = [
             s for s in strlist
             if s.strip() and s.strip() != "," and len(s) > 3 and not any(t in s.upper() for t in text_anomalies)
         ]
+        
         return clean_strlist 
     
     """Retreives ALLCAPS characters from the box, usually used to declare the manufacturer of the vacuum bag"""
