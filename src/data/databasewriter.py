@@ -1,34 +1,31 @@
 import sqlite3
 from ocr.process_ocr import ProcessOcr 
 from ocr.process_image import ProcessImage
+from config import DATABASE_PATH
 
 class DatabaseWriter:
-    con = sqlite3.connect("database/staubsauger.db")
-    image_dir = "/home/furukawa/programming/staub/src/images/cropped"
 
-    # Gets dictionary from .scan_dir()
-    # Pushes data into datbase
+    def __init__(self, database_path):
+        self.database_path = database_path
 
+    """Pushes {vacuum-name, bag size, supermarket name}"""
+    def push_data(self, data: dict):
+        with sqlite3.connect(self.database_path) as con:
+            cur = con.cursor()
+            cursor.execute()
 
-    @classmethod
-    def commit(cls):
-        cur = cls.con.cursor()
-        print("Commited data.")
+    def create_table(self):
+        table_query = """
+        CREATE TABLE IF NOT EXISTS bags (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            size TEXT NOT NULL,
+            supermarkt TEXT NOT NULL
+        );
+        """
 
-
-        c.execute("""CREATE TABLE bags (
-            name text, 
-            size text, 
-            supermarket text
-        )""")
-
-
-
-dir = "/home/furukawa/programming/staub/src/images/cropped"
-image = "/home/furukawa/programming/staub/src/images/cropped/E05-2-cropped.jpg"
-scanner = ProcessImage(dir, image)
-string = scanner.scan_image()
-cleaned_string =  ProcessOcr.clean_ocr_output(string)
-company_names = ProcessOcr.get_likely_companynames(cleaned_string)
-print(company_names)
-
+        with sqlite3.connect(self.database_path) as con:
+            cur = con.cursor()
+            cur.execute(table_query)
+            con.commit()
+        print("Created Table")

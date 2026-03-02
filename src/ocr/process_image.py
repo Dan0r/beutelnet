@@ -42,7 +42,10 @@ class ProcessImage:
         text = ProcessOcr.clean_ocr_output(text)
         return text
 
-    """Scans directory for images and returns dictionary of the vacuum name, supermarket name and bagsize"""
+    """
+    Scan directory for images
+    Return dictionary{name of supermarket, name of vacuum model, size of vacuum bag}
+    """
     def scan_dir(self) -> list[dict[str, str]]:
         result = [] 
         for roots, dirs, files in os.walk(self.directory):

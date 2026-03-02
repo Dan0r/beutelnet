@@ -13,6 +13,12 @@ class PreProcessor:
         self.directory = directory 
         self.new_directory = new_directory
 
+    """
+    Main Preprocessor.
+    Process the images in the following order:
+    1. Crop images in storage/raw and place them into storage/preprocessed
+    2. Apply grayscale to the already split images in storage/preprocessed
+    """
     def preprocess(self):
         self._split_images()
 
@@ -28,6 +34,7 @@ class PreProcessor:
         counter = 0
         for root, dirs, files in os.walk(dir):
             for file in files:
+                print(f"Preprocessing: {file}")
                 file_path = self.directory + "/" + file
                 # Calculate image's bounding box and split at its midpoint 
                 image = Image.open(file_path)
@@ -45,7 +52,7 @@ class PreProcessor:
                 right_crop.save(self.new_directory + file.replace(".jpg", "") + "-right-crop" + ".jpg")
 
                 counter += 2
-        print("Images cropped:" + str(counter) )
+        print(f"Preprocessed images created: {counter}")
 
     """Grayscale images for better OCR results"""
     def _grayscale(self):
@@ -53,6 +60,5 @@ class PreProcessor:
             for file in files:
                 image_path = os.path.join(root, file)
                 image = Image.open(os.path.join(image_path))
-                print(root, file)
                 gray_image = ImageOps.grayscale(image)
                 gray_image.save(self.new_directory + file)
