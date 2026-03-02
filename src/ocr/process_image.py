@@ -59,7 +59,7 @@ class ProcessImage:
                 for item in text: 
                     result.append({
                         "supermarket": supermarket_name,
-                        "bag:": bag_name,
-                        "text:": item 
+                        "bag": bag_name,
+                        "vacuum": item 
                     })
         return result
