@@ -8,3 +8,6 @@ def index():
 
 def bag_view(request):
     return render(request, "bagsearch/index.html")
+
+def table_view(request):
+    return HttpResponse("Requested data will go here.")
