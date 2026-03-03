@@ -1,5 +1,5 @@
 [project]
-name = "ocr"
+name = "beutelnet"
 version = "0.1.0"
 description = ""
 authors = [
@@ -14,10 +14,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "ocr", from = "src"},
-			{include = "data", from ="src"},
-			{include = "config.py"}
-]
+packages = [{include = "beutelnet", from = "src"}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

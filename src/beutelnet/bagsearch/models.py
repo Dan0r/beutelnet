@@ -8,5 +8,3 @@ class VacuumBags(models.Model):
 
     def __str__(self):
         return f"Supermarkt: {self.supermarket}, Staubsauger-Modell: {self.vacuum}, Beutelgröße: {self.size}"
-
-
