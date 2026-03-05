@@ -21,7 +21,6 @@ class PreProcessor:
     """
     def preprocess(self):
         self._split_images()
-
         self._grayscale()
 
     """Split double column image into two single column images"""
@@ -62,3 +61,8 @@ class PreProcessor:
                 image = Image.open(os.path.join(image_path))
                 gray_image = ImageOps.grayscale(image)
                 gray_image.save(self.new_directory + file)
+
+
+    def pre_process_images():
+        image_processor = PreProcessor(STORAGE_RAW_IMAGES_DIR, STORAGE_PRE_PROCESSED_IMAGES_DIR)
+        image_processor.preprocess()

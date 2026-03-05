@@ -63,3 +63,10 @@ class ProcessImage:
                         "vacuum": item 
                     })
         return result
+
+
+
+    def output_ocrtext():
+        ocr_processor = ProcessImage(STORAGE_PRE_PROCESSED_IMAGES_DIR)
+        ocrtext = ocr_processor.scan_dir()
+        return ocrtext

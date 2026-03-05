@@ -1,4 +1,5 @@
 class ProcessOcr:
+    
 
     @classmethod
     def clean_ocr_output(cls, strlist: list[str]) -> list[str]:
