@@ -1,5 +1,5 @@
 [project]
-name = "beutelnet"
+name = "src"
 version = "0.1.0"
 description = ""
 authors = [
@@ -10,11 +10,15 @@ requires-python = ">=3.13"
 dependencies = [
     "pytesseract (>=0.3.13,<0.4.0)",
     "pillow (>=12.1.1,<13.0.0)",
-    "django (>=6.0.2,<7.0.0)"
+    "django (>=6.0.2,<7.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)"
 ]
 
 [tool.poetry]
-packages = [{include = "beutelnet", from = "src"}]
+packages = [
+			{include = "beutelnet", from = "src"},
+			{include = "ocr", from = "src/beutelnet"}
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

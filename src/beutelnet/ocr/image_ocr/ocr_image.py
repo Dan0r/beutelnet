@@ -1,7 +1,7 @@
 from PIL import Image
 import pytesseract
 import os
-from ocr.process_ocr import ProcessOcr
+from ocr.image_ocr.clean_ocr_output import ProcessOcr
 
 class ProcessImage:
     """
@@ -63,8 +63,6 @@ class ProcessImage:
                         "vacuum": item 
                     })
         return result
-
-
 
     def output_ocrtext():
         ocr_processor = ProcessImage(STORAGE_PRE_PROCESSED_IMAGES_DIR)

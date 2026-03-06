@@ -1,5 +1,6 @@
 from PIL import Image, ImageOps
 import os
+from django.conf import settings
 
 # Iterate over files in folder
 class PreProcessor:
@@ -25,16 +26,14 @@ class PreProcessor:
 
     """Split double column image into two single column images"""
     def _split_images(self):
-        dir = self.directory
         # Specify offset of the placement of the midpoint
         offset = -15 
-
         # Walk into image folder and split images
         counter = 0
-        for root, dirs, files in os.walk(dir):
+        for root, dirs, files in os.walk(settings.STORAGE_RAW_IMAGES_DIR):
             for file in files:
                 print(f"Preprocessing: {file}")
-                file_path = self.directory + "/" + file
+                file_path = settings.STORAGE_RAW_IMAGES_DIR / file
                 # Calculate image's bounding box and split at its midpoint 
                 image = Image.open(file_path)
                 width, height = image.size
@@ -43,26 +42,26 @@ class PreProcessor:
                 # Crop left half of the image
                 left_bbox = (0, 0, midpoint, height)
                 left_crop = image.crop(left_bbox)
-                left_crop.save(self.new_directory + file.replace(".jpg", "") + "-left-crop" + ".jpg")
+                left_crop.save(file)
 
                 # Crop right half of the image
                 right_bbox = (midpoint, 0, width, height)
                 right_crop = image.crop(right_bbox)
-                right_crop.save(self.new_directory + file.replace(".jpg", "") + "-right-crop" + ".jpg")
+                right_crop.save(file)
 
                 counter += 2
         print(f"Preprocessed images created: {counter}")
 
     """Grayscale images for better OCR results"""
     def _grayscale(self):
-        for root, dirs, files in os.walk(self.new_directory):
+        for root, dirs, files in os.walk(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR):
             for file in files:
                 image_path = os.path.join(root, file)
                 image = Image.open(os.path.join(image_path))
                 gray_image = ImageOps.grayscale(image)
-                gray_image.save(self.new_directory + file)
+                gray_image.save("preprocessed-" + file)
 
 
     def pre_process_images():
-        image_processor = PreProcessor(STORAGE_RAW_IMAGES_DIR, STORAGE_PRE_PROCESSED_IMAGES_DIR)
+        image_processor = PreProcessor(settings.STORAGE_RAW_IMAGES_DIR, settings.STORAGE_PRE_PROCESSED_IMAGES_DIR)
         image_processor.preprocess()

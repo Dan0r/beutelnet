@@ -1,3 +1,5 @@
-src/beutelnet/beutelnet/settings.py
-src/beutelnet/beutelnet/__pycache__
+**/__pycache__/
+*.sqlite3
+src/beutelnet/storage///
+.env
 
