@@ -51,16 +51,17 @@ class ProcessImage:
         for roots, dirs, files in os.walk(self.directory):
             for file in files:
                 print(f"Processing: {file}")
-                # Get supermarket, bagsize and text of the image
-                supermarket_name, bag_name = self._parse_filename(file)
+                # Get supermarket name and size of the vacuum bag
+                supermarket, size = self._parse_filename(file)
                 text = self._ocr_text(os.path.join(roots, file))
 
                 # Push data into dictionary
-                for item in text: 
+                # vacuum = the vacuum-bag is compatible with the given vacuum name
+                for vacuum in text: 
                     result.append({
-                        "supermarket": supermarket_name,
-                        "bag": bag_name,
-                        "vacuum": item 
+                        "supermarket": supermarket,
+                        "size": size,
+                        "vacuum": vacuum 
                     })
         return result
 
