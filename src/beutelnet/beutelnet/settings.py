@@ -14,9 +14,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-load_dotenv(BASE_DIR / ".env")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 STORAGE_DIR = BASE_DIR / "storage"
 STORAGE_RAW_IMAGES_DIR =  STORAGE_DIR / "raw"

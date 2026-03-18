@@ -39,15 +39,20 @@ class PreProcessor:
                 width, height = image.size
                 midpoint = width / 2 - offset
 
-                # Crop left half of the image
+                # Crop left half of the imagePure path objects provide path-handling operations which don’t actually access a filesystem. There are three ways to access these classes, which we also call flavours:
                 left_bbox = (0, 0, midpoint, height)
                 left_crop = image.crop(left_bbox)
-                left_crop.save(file)
+                # Join path to current-directory with filename and "-left"
+                path_left = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, "left-" + file)
+                # Use PILLOW to save under this path
+                left_crop.save(path_left, format="JPEG")
 
                 # Crop right half of the image
                 right_bbox = (midpoint, 0, width, height)
                 right_crop = image.crop(right_bbox)
-                right_crop.save(file)
+                # Join Path 
+                path_right = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, "right-" + file)
+                right_crop.save(path_right, format="JPEG")
 
                 counter += 2
         print(f"Preprocessed images created: {counter}")
@@ -59,7 +64,9 @@ class PreProcessor:
                 image_path = os.path.join(root, file)
                 image = Image.open(os.path.join(image_path))
                 gray_image = ImageOps.grayscale(image)
-                gray_image.save("preprocessed-" + file)
+
+                path = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, file)
+                gray_image.save(path, format="JPEG")
 
 
     def pre_process_images():

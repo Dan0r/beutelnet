@@ -16,7 +16,7 @@ class VacuumBags(models.Model):
 
 # Write function to fire off ocr module and make a commit with new images into the database
 
-    """Push data through pipline. Commit to database."""
+    """Push data through pipeline. Commit to database."""
     @classmethod
     def push_new_data(cls):
         # 1. Preprocess the images in the raw directory
