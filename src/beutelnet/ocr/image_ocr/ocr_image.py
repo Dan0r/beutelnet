@@ -1,4 +1,5 @@
 from PIL import Image
+from pathlib import Path
 import pytesseract
 import os
 from ocr.image_ocr.clean_ocr_output import ProcessOcr
@@ -27,8 +28,8 @@ class ProcessImage:
     """Retreive supermarket name and size from the image name"""
     def _parse_filename(self, image_path: str) -> tuple[str, str]:
         filename = os.path.basename(image_path)
-        supermarket_name, bag_name = filename.split("-")[:2]
-        return supermarket_name, bag_name
+        supermarket, bag = filename.split("-")[:2]
+        return supermarket, bag
 
 
     """Extract text from image and clean data according to ProcessOcr module"""
@@ -48,12 +49,13 @@ class ProcessImage:
     """
     def scan_dir(self) -> list[dict[str, str]]:
         result = [] 
-        for roots, dirs, files in os.walk(self.directory):
-            for file in files:
-                print(f"Processing: {file}")
+        # path = Path(self.directory)
+
+        for path in self.directory.iterdir():
+                print(f"Processing: {path.name}")
                 # Get supermarket name and size of the vacuum bag
-                supermarket, size = self._parse_filename(file)
-                text = self._ocr_text(os.path.join(roots, file))
+                supermarket, size = self._parse_filename(path.name)
+                text = self._ocr_text(path)
 
                 # Push data into dictionary
                 # vacuum = the vacuum-bag is compatible with the given vacuum name

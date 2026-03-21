@@ -1,4 +1,5 @@
 from PIL import Image, ImageOps
+from pathlib import Path
 import os
 from django.conf import settings
 
@@ -8,7 +9,7 @@ class PreProcessor:
     """Takes images from directory, splits them and places them inside the specified directory"""
     def __init__(self, directory, new_directory):
         # Check if directory valid
-        if not os.path.isdir(directory):
+        if not directory.is_dir():
             print("Path not found.")
 
         self.directory = directory 
@@ -30,12 +31,10 @@ class PreProcessor:
         offset = -15 
         # Walk into image folder and split images
         counter = 0
-        for root, dirs, files in os.walk(settings.STORAGE_RAW_IMAGES_DIR):
-            for file in files:
-                print(f"Preprocessing: {file}")
-                file_path = settings.STORAGE_RAW_IMAGES_DIR / file
+        for path in settings.STORAGE_RAW_IMAGES_DIR.iterdir():
+                print(f"Preprocessing: {path}")
                 # Calculate image's bounding box and split at its midpoint 
-                image = Image.open(file_path)
+                image = Image.open(path)
                 width, height = image.size
                 midpoint = width / 2 - offset
 
@@ -43,7 +42,11 @@ class PreProcessor:
                 left_bbox = (0, 0, midpoint, height)
                 left_crop = image.crop(left_bbox)
                 # Join path to current-directory with filename and "-left"
-                path_left = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, "left-" + file)
+                filename, ext = path.name.split(".")
+                left_filename = f"{filename}-left.{ext}"
+
+                path_left = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, left_filename)
+                # path_left = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, "left-" + file)
                 # Use PILLOW to save under this path
                 left_crop.save(path_left, format="JPEG")
 
@@ -51,7 +54,10 @@ class PreProcessor:
                 right_bbox = (midpoint, 0, width, height)
                 right_crop = image.crop(right_bbox)
                 # Join Path 
-                path_right = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, "right-" + file)
+                filename, ext = path.name.split(".")
+                right_filename = f"{filename}-right.{ext}"
+
+                path_right = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, right_filename)
                 right_crop.save(path_right, format="JPEG")
 
                 counter += 2
@@ -59,14 +65,12 @@ class PreProcessor:
 
     """Grayscale images for better OCR results"""
     def _grayscale(self):
-        for root, dirs, files in os.walk(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR):
-            for file in files:
-                image_path = os.path.join(root, file)
-                image = Image.open(os.path.join(image_path))
+        for path in settings.STORAGE_PRE_PROCESSED_IMAGES_DIR.iterdir():
+                image = Image.open(path)
                 gray_image = ImageOps.grayscale(image)
 
-                path = os.path.join(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR, file)
-                gray_image.save(path, format="JPEG")
+                new_path = settings.STORAGE_PRE_PROCESSED_IMAGES_DIR / path.name
+                gray_image.save(new_path, format="JPEG")
 
 
     def pre_process_images():

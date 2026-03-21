@@ -10,13 +10,13 @@ class ProcessOcr:
             "_ M&",
             "FOLGENDE",
             "MAX 4L",
+            "MAX4L",
             "S-BA"
             "STANDARD-BAG",
             "S-BA",
             "GREEN",
             "STANDARD",
             "POWER",
-            "(MAX 4L"
         ]
         # Remove whitespace, comma, specific words
         clean_strlist = [

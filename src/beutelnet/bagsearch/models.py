@@ -13,22 +13,3 @@ class VacuumBags(models.Model):
 
     def __str__(self):
         return f"Supermarkt: {self.supermarket}, Staubsauger-Modell: {self.vacuum}, Beutelgröße: {self.size}"
-
-# Write function to fire off ocr module and make a commit with new images into the database
-
-    """Push data through pipeline. Commit to database."""
-    @classmethod
-    def push_new_data(cls):
-        # 1. Preprocess the images in the raw directory
-        image_processor = PreProcessor(settings.STORAGE_RAW_IMAGES_DIR, settings.STORAGE_PRE_PROCESSED_IMAGES_DIR)
-        image_processor.preprocess()
-
-        # 2. Recognises the text of all the, now pre-processed, images in the directory
-        ocr_processor = ProcessImage(settings.STORAGE_PRE_PROCESSED_IMAGES_DIR)
-            # Return -> list[dict[str, str]]:
-        ocrtext = ocr_processor.scan_dir()
-
-        # 3. Push data into model
-        for dictionary in ocrtext:
-            vacuum = VacuumBags(supermarket=dictionary["supermarket"], vacuum=dictionary["vacuum"], size=dictionary["size"])
-            vacuum.save()
