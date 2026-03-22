@@ -9,9 +9,3 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         push_new_data()
         print("Inserted new data.")
-
-
-
-
-
-    # Subclassing BaseCommand. Requires implementation of handle()
