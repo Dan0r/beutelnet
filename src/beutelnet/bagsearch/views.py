@@ -8,8 +8,10 @@ from .models import VacuumBags
 def index(request):
     return render(request, "bagsearch/index.html")
 
-def table_view(request):
-    return HttpResponse("Requested data will go here.")
+def table(request):
+    data = VacuumBags.objects.all()[:10]
+    context = {"vacuumbags": data}
+    return render(request,"bagsearch/table.html", context)
 
 """When user submits name of vacuum, display the bag size"""
 def answer_search_view(request):
