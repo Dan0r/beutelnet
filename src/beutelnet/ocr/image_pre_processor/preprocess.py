@@ -32,7 +32,7 @@ class PreProcessor:
         # Walk into image folder and split images
         counter = 0
         for path in settings.STORAGE_RAW_IMAGES_DIR.iterdir():
-                print(f"Preprocessing: {path}")
+                print(f"Applying Greyscale and Crop: {path.name}")
                 # Calculate image's bounding box and split at its midpoint 
                 image = Image.open(path)
                 width, height = image.size
@@ -61,7 +61,7 @@ class PreProcessor:
                 right_crop.save(path_right, format="JPEG")
 
                 counter += 2
-        print(f"Preprocessed images created: {counter}")
+        print(f"Images pre-processed: {counter}")
 
     """Grayscale images for better OCR results"""
     def _grayscale(self):

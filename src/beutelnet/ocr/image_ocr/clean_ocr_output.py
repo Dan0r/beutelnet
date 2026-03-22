@@ -17,6 +17,7 @@ class ProcessOcr:
             "GREEN",
             "STANDARD",
             "POWER",
+            "ANDEREN"
         ]
         # Remove whitespace, comma, specific words
         clean_strlist = [

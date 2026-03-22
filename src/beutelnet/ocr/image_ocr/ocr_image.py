@@ -47,12 +47,12 @@ class ProcessImage:
     Scan directory for images
     Return dictionary{name of supermarket, name of vacuum model, size of vacuum bag}
     """
-    def scan_dir(self) -> list[dict[str, str]]:
-        result = [] 
-        # path = Path(self.directory)
 
+
+    def scan_dir(self):
+        result = [] 
         for path in self.directory.iterdir():
-                print(f"Processing: {path.name}")
+                print(f"Apply OCR: {path.name}")
                 # Get supermarket name and size of the vacuum bag
                 supermarket, size = self._parse_filename(path.name)
                 text = self._ocr_text(path)
