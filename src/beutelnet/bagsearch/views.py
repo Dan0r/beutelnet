@@ -9,7 +9,7 @@ def index(request):
     return render(request, "bagsearch/index.html")
 
 def table(request):
-    data = VacuumBags.objects.all()[:10]
+    data = VacuumBags.objects.filter(vacuum__contains="None")
     context = {"vacuumbags": data}
     return render(request,"bagsearch/table.html", context)
 

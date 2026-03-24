@@ -9,10 +9,28 @@
 
 <body>
 
-	<h2>VacuumBags</h2>
-		{% for vacuumbag in vacuumbags %}
-		- {{vacuumbag.supermarket}}, {{vacuumbag.vacuum}},{{vacuumbag.size}}, 
-		{% endfor %}
+	<h2>Table</h2>
+		<table>
+			{% if vacuumbags %}
+			{% for vacuumbag in vacuumbags %}
+			<thead>
+				<tr>
+					<th scope="col"> Supermarkt </th>
+					<th scope="col"> Staubsauger</th>
+					<th scope="col"> Beutel</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td> {{vacuumbag.supermarket}} </td>
+					<td> {{vacuumbag.vacuum}} </td>
+					<td> {{vacuumbag.size}} </td>
+				</tr>
+			{% endfor %}
+			{% else %}
+				<tr>Entschuldigung: Kein Modell gefunden. </tr>
+			{% endif %}
+ 		</tbody>
+		</table>
 	</body>
-
 </html>
