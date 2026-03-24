@@ -1,30 +1,38 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'bagsearch/style.css' %}">
+{% extends "bagsearch/layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-	<title>Table</title>
-</head>
-
-<body>
-
+{% block table %}
 	<h2>Table</h2>
 		<table>
 			{% if vacuumbags %}
-			{% for vacuumbag in vacuumbags %}
 			<thead>
 				<tr>
 					<th scope="col"> Supermarkt </th>
 					<th scope="col"> Staubsauger</th>
 					<th scope="col"> Beutel</th>
 				</tr>
+			{% for vacuumbag in vacuumbags %}
 			</thead>
 			<tbody>
 				<tr>
 					<td> {{vacuumbag.supermarket}} </td>
 					<td> {{vacuumbag.vacuum}} </td>
-					<td> {{vacuumbag.size}} </td>
+					<td> 
+						<svg width="50" height="50">
+							<circle
+								class="purple-circle"
+								cx="25"
+								cy="25"
+								r="15">
+							</circle>
+							<text
+								x="25"
+								y="25"
+								text-anchor="middle"
+								dominant-baseline="middle"
+								fill="white">
+							 {{vacuumbag.size}} </text>
+						</svg>
+					</td>
 				</tr>
 			{% endfor %}
 			{% else %}
@@ -32,5 +40,4 @@
 			{% endif %}
  		</tbody>
 		</table>
-	</body>
-</html>
+{% endblock %}
