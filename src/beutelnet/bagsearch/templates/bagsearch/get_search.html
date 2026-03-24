@@ -1,1 +1,4 @@
 {% extends "bagsearch/body.html" %}
+
+{% csrf_token %}
+{{ search_term }}

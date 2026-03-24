@@ -3,16 +3,7 @@
 {% block search %}
 	<div class="searchbox">
 		<form action= "{% url "get_search" %}" method="GET">
-			{% csrf_token %}
 			{{ form.as_p }}
-			<input
-				autofocus
-				name = "search_term"
-				type="search" id="site_search"
-				aria-label="Suche den passenden Staubsaugerbeutel"
-				placeholder="Name Ihres Staubsaugers"
-				results="3"
-			/>
 		</form>
 	</div>
 {% endblock %}
