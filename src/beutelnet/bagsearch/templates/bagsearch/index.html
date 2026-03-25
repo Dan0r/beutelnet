@@ -1,8 +1,9 @@
 {% extends "bagsearch/body.html" %}
 
-{% block search %}
+{% block input %}
 	<div class="searchbox">
-		<form action= "{% url "get_search" %}" method="GET">
+		<form action= "{% url "get_search" %}" method="POST">
+			{% csrf_token %}
 			{{ form.as_p }}
 		</form>
 	</div>

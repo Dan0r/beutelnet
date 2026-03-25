@@ -1,4 +1,5 @@
 {% extends "bagsearch/body.html" %}
 
-{% csrf_token %}
+{% block input %}
 {{ search_term }}
+{% endblock %}
