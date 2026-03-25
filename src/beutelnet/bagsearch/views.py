@@ -24,14 +24,18 @@ def get_search(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-    # form = SearchForm()
-    # return render(request, "bagsearch/search.html", {"form": form})
-
 def table(request):
-    # get userinput
-    data = VacuumBags.objects.filter(vacuum__contains="City")[:5]
-    context = {"vacuumbags": data}
-    return render(request,"bagsearch/table.html", context)
+    if request.method == "GET":
+        form = SearchForm(request.GET)
+        
+        if form.is_valid():
+            search_term = form.cleaned_data["search_term"]
+            data = VacuumBags.objects.filter(vacuum__contains=search_term)[:5]
+            context = {"vacuumbags": data}
+            return render(request,"bagsearch/table.html", context)
+
+        else:
+            return HttpResponseNotAllowed(['GET'])
 
 """When user submits name of vacuum, display the bag size"""
 def answer_search_view(request):
