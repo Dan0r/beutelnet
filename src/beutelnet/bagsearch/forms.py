@@ -9,6 +9,7 @@ class SearchForm(forms.Form):
             "type":"search",
             "placeholder":"Name Ihres Staubsaugers",
             "autofocus":True,
+            "onsubmit":"filterSearch(event)",
         })
     )
 

@@ -1,9 +1,12 @@
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
     path("table",views.table, name="table"),
-    path("get_search",views.get_search, name="get_search")
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

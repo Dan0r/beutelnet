@@ -1,7 +1,8 @@
-{% extends "bagsearch/body.html" %}
+{% extends "bagsearch/layout.html" %}
 
-{% block input %}
+{% block content %}
 	<h2>Ergebnis</h2>
+	<div class="search-result">
 		<table>
 			{% if vacuumbags %}
 			<thead>
@@ -39,5 +40,6 @@
 				<tr>Entschuldigung: Kein Modell gefunden. </tr>
 			{% endif %}
  		</tbody>
+	</div>
 		</table>
 {% endblock %}

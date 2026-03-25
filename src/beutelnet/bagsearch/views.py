@@ -13,16 +13,6 @@ def index(request):
     form = SearchForm()
     return render(request, "bagsearch/index.html", {"form":form})
 
-""" Post searchterm """
-def get_search(request):
-    if request.method == "POST":
-        form = SearchForm(request.POST)
-
-        if form.is_valid():
-            search_term = form.cleaned_data["search_term"]
-            return render(request, "bagsearch/get_search.html", {"search_term":search_term})
-    else:
-        return HttpResponseNotAllowed(['POST'])
 
 def table(request):
     if request.method == "GET":
