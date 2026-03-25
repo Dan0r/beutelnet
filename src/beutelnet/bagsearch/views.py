@@ -13,7 +13,6 @@ def index(request):
     form = SearchForm()
     return render(request, "bagsearch/index.html", {"form":form})
 
-
 def table(request):
     if request.method == "GET":
         form = SearchForm(request.GET)
@@ -21,11 +20,16 @@ def table(request):
         if form.is_valid():
             search_term = form.cleaned_data["search_term"]
             data = VacuumBags.objects.filter(vacuum__contains=search_term)[:5]
-            context = {"vacuumbags": data}
+            context = {"vacuumbags": data, "form":form}
             return render(request,"bagsearch/table.html", context)
 
         else:
             return HttpResponseNotAllowed(['GET'])
+
+""" Redirect to index after click on webpage-title-icon """
+def redirect(request):
+    form = SearchForm()
+    return HttpResponseRedirect("/", {"form":form})
 
 """When user submits name of vacuum, display the bag size"""
 def answer_search_view(request):

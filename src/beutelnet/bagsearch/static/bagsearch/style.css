@@ -2,11 +2,15 @@
   color-scheme: dark;
 }
 
+a[name="logo"] {
+	text-decoration: none;
+	color: #b084f5;
+}
+
 a:link,
-a:visited {
+a[name="footer"]{
   color: #b084f5;
   background-color: unset;
-  text-decoration: underline;
 }
 
 .searchbox {

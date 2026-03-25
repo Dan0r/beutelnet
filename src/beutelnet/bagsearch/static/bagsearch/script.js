@@ -1,8 +1,7 @@
 function filterSearch(event) {
 	const searchTerm = event.target.value;
-	const searchResults = document.querySelector('.search-results');
+	const searchResults = document.querySelector('.search-result');
 	console.log(searchTerm);
-	console.log(searchResults);
 }
 
 
