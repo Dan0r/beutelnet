@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("table",views.table, name="table"),
     path("redirect", views.redirect, name="redirect"),
+    path("live_update", views.live_update, name="live_update"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

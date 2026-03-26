@@ -13,3 +13,11 @@ class VacuumBags(models.Model):
 
     def __str__(self):
         return f"Supermarkt: {self.supermarket}, Staubsauger-Modell: {self.vacuum}, Beutelgröße: {self.size}"
+
+    """ Return dict for JSON serialisation """
+    def serialize(self):
+        return {
+            "supermarket": self.supermarket,
+            "vacuum": self.vacuum,
+            "size": self.size
+        }

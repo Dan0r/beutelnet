@@ -4,7 +4,7 @@
 	<div class="searchbox">
 		<!--Use GET to fetch data from database. It is not POST.-->
 		<!--So no {% csrf_token %} needed.-->
-		<form action= "{% url "table" %}" method="GET">
+		<form action= "{% url "live_update" %}" method="GET">
 			{{ form.as_p }}
 		</form>
 	</div>
