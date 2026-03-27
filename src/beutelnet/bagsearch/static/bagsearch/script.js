@@ -1,6 +1,5 @@
 // Select elements in the DOM
 const searchInput = document.getElementById("search-input");
-const table = document.getElementById("table");
 const tableBody = document.getElementById("table-body");
 const tableHead = document.getElementById("table-head");
 
@@ -54,9 +53,6 @@ function renderTable(userInput, res) {
 		tableHead.classList.add('not-visible');
 		tableBody.innerHTML = "<p><b>Entschuldigung: Modell nicht gefunden</b></p>";
 		return;
-		//rows =  `
-		//	<tr align="center"> Entschuldigung: Modell nicht gefunden </tr>
-		//`
 	} else {
 		tableHead.classList.remove('not-visible');
 		rows = res.map(vacuum => `
@@ -64,21 +60,21 @@ function renderTable(userInput, res) {
 				<td>${vacuum.supermarket}</td>
 				<td>${vacuum.vacuum}</td>
 				<td>
-				<svg width="50" height="50">
-				<circle
-				class="purple-circle"
-				cx="25"
-				cy="25"
-				r="15">
-				</circle>
-				<text
-				x="25"
-				y="25"
-				text-anchor="middle"
-				dominant-baseline="middle"
-				fill="white">
-				${vacuum.size}</text>
-				</svg>
+					<svg width="50" height="50">
+						<circle
+						class="purple-circle"
+						cx="25"
+						cy="25"
+						r="15">
+						</circle>
+						<text
+						x="25"
+						y="25"
+						text-anchor="middle"
+						dominant-baseline="middle"
+						fill="white">
+						${vacuum.size}</text>
+					</svg>
 				</td>
 			</tr>`).join("");
 	}

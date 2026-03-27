@@ -1,5 +1,7 @@
 :root {
   color-scheme: dark;
+  --color-purple: #b084f5;
+  --color-lavender: #6b49a81a;
 }
 
 a[name="logo"] {
@@ -77,3 +79,39 @@ footer {
 .not-visible {
 	display: none;
 }
+
+.table {
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 18px;
+	max-width: 561px;
+	min-width: 400px;
+}
+
+.table thead tr {
+    font-weight: 600; /* bolder than regular rows */
+	text-align: center;
+	background-color: #7c5ac4; /* darker purple than row tint */
+	color: #ffffff;             /* ensures white text pops */
+	font-weight: bold;
+	border-bottom: 2px solid var(--color-purple);
+}
+
+.table th,
+.table td {
+	padding:12px 15px;
+}
+
+.table tbody tr {
+	border-bottom: 1px solid white;
+}
+
+.table tbody tr:nth-of-type(even) {
+	background-color: var(--color-lavender);
+}
+
+.table tbody tr:last-of-type {
+	border-bottom: 1px solid var(--color-purple);
+}
+
+
