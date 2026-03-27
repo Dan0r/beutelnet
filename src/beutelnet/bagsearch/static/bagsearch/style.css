@@ -73,3 +73,7 @@ footer {
     font-weight: 200;
     color: #b084f5;
 }
+
+.not-visible {
+	display: none;
+}

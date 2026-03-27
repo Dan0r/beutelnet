@@ -31,19 +31,6 @@ def get_data(request):
         else:
             return JsonResponse({"errors": form.errors}, status=400)
 
-# def table(request):
-#     if request.method == "GET":
-#         form = SearchForm(request.GET)
-#
-#         if form.is_valid():
-#             search_term = form.cleaned_data["search_term"]
-#             data = VacuumBags.objects.filter(vacuum__contains=search_term)[:5]
-#             context = {"vacuumbags": data, "form":form}
-#             return render(request,"bagsearch/table.html", context)
-#
-#         else:
-#             return HttpResponseNotAllowed("Error: Submit failed.")
-
 """ Redirect to index after click on webpage-title-icon """
 def redirect(request):
     form = SearchForm()
