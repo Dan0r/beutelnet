@@ -10,5 +10,6 @@ class SearchForm(forms.Form):
             "placeholder":"Name Ihres Staubsaugers",
             "id":"search-input",
             "autofocus":True,
+            "required":True,
         })
     )

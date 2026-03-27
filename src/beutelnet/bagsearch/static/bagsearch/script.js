@@ -2,6 +2,17 @@
 const searchInput = document.getElementById("search-input");
 
 
+// Debounce search-input for performance
+function debounce(func, timeout = 300){
+	let timer;
+	return (...args) => {
+		// Clear any previous timeout
+		clearTimeout(timer);
+		// Set timeout
+		timer = setTimeout(() => { func.apply(this, args); }, timeout);
+	};
+}
+
 // Fetch data from view
 const sendInput = debounce(async (vacuum) => {
 	try {
@@ -16,24 +27,15 @@ const sendInput = debounce(async (vacuum) => {
 	} catch (error) {
 		console.log(error.message);
 	}
-}, 100);
+}, 250);
 
-// Debounce search-input for performance
-function debounce(func, timeout = 300){
-  let timer;
-  return (...args) => {
-		// Clear any previous timeout
-    clearTimeout(timer);
-		// Set timeout
-    timer = setTimeout(() => { func.apply(this, args); }, timeout);
-  };
-}
 
 // Send search-input
 searchInput.addEventListener('keyup', input=> {
-	console.log(input.target.value)
-	sendInput(input.target.value)
+	if (input.target.value.trim().length != 0) {
+		console.log(input.target.value)
+		sendInput(input.target.value)
+	}
 })
 
-
-//	// 2. Table bauen
+// Expand table
