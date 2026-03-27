@@ -1,4 +1,3 @@
-from django.core import serializers
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -13,7 +12,7 @@ from .forms import SearchForm
 """ Submit search-term to get_data"""
 def index(request):
     form = SearchForm()
-    return render(request, "bagsearch/index.html", {"form":form})
+    return render(request, "bagsearch/table.html", {"form":form})
 
 
 """ Sends back data corresponding to search-term """
@@ -44,6 +43,7 @@ def get_data(request):
 #
 #         else:
 #             return HttpResponseNotAllowed("Error: Submit failed.")
+
 """ Redirect to index after click on webpage-title-icon """
 def redirect(request):
     form = SearchForm()

@@ -11,5 +11,6 @@ class SearchForm(forms.Form):
             "id":"search-input",
             "autofocus":True,
             "required":True,
+            "autocomplete":"off"
         })
     )

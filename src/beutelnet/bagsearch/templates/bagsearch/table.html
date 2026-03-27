@@ -1,9 +1,7 @@
 {% extends "bagsearch/index.html" %}
 
-{% block result %}
-	<h2></h2>
-		<table>
-			{% if vacuumbags %}
+{% block table %}
+		<table id="table">
 			<thead>
 				<tr>
 					<th scope="col"> Supermarkt </th>
@@ -11,33 +9,6 @@
 					<th scope="col"> Beutel</th>
 				</tr>
 			</thead>
-			<tbody>
-				{% for vacuumbag in vacuumbags %}
-				<tr>
-					<td class="search-result"> {{vacuumbag.supermarket}} </td>
-					<td class="search-result"> {{vacuumbag.vacuum}} </td>
-					<td class="search-result"> 
-						<svg width="50" height="50">
-							<circle
-								class="purple-circle"
-								cx="25"
-								cy="25"
-								r="15">
-							</circle>
-							<text
-								x="25"
-								y="25"
-								text-anchor="middle"
-								dominant-baseline="middle"
-								fill="white">
-							 {{vacuumbag.size}} </text>
-						</svg>
-					</td>
-				</tr>
-			{% endfor %}
-			{% else %}
-				<tr>Entschuldigung: Kein Modell gefunden. </tr>
-			{% endif %}
- 		</tbody>
+			<tbody id="table-body">
 		</table>
 {% endblock %}
