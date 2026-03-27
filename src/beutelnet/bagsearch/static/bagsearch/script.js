@@ -2,6 +2,7 @@
 const searchInput = document.getElementById("search-input");
 const table = document.getElementById("table");
 const tableBody = document.getElementById("table-body");
+const tableHead = document.getElementById("table-head");
 
 
 // Debounce search-input for performance
@@ -50,14 +51,14 @@ function renderTable(userInput, res) {
 	let rows;
 	// Hide table if no data for query OR no text in searchbar
 	if (res.length === 0 || userInput.trim().length === 0) {
-		table.classList.add('not-visible');
-		tableBody.innerHTML = "";
+		tableHead.classList.add('not-visible');
+		tableBody.innerHTML = "<p><b>Entschuldigung: Modell nicht gefunden</b></p>";
 		return;
 		//rows =  `
 		//	<tr align="center"> Entschuldigung: Modell nicht gefunden </tr>
 		//`
 	} else {
-		table.classList.remove('not-visible');
+		tableHead.classList.remove('not-visible');
 		rows = res.map(vacuum => `
 			<tr>
 				<td>${vacuum.supermarket}</td>
