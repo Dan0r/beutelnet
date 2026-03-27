@@ -20,8 +20,5 @@ def push_new_data():
 
     # 3. Push data into model
     for dictionary in ocrtext:
-        # Dominik: Nehme NamedTupel anstatt Dictionaries. Weil wenn du etwa
-        # auf einen Key zugreifst, der nicht existiert gibt es einen Error; etc.
-
         vacuum = VacuumBags.objects.create(supermarket=dictionary["supermarket"], vacuum=dictionary["vacuum"], size=dictionary["size"])
 

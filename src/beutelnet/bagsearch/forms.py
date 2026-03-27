@@ -8,8 +8,7 @@ class SearchForm(forms.Form):
         widget=forms.TextInput(attrs={
             "type":"search",
             "placeholder":"Name Ihres Staubsaugers",
+            "id":"search-input",
             "autofocus":True,
-            "onsubmit":"filterSearch(event)",
         })
     )
-

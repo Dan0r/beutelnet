@@ -2,7 +2,6 @@
 
 {% block result %}
 	<h2></h2>
-	<div class="search-result">
 		<table>
 			{% if vacuumbags %}
 			<thead>
@@ -11,13 +10,13 @@
 					<th scope="col"> Staubsauger</th>
 					<th scope="col"> Beutel</th>
 				</tr>
-			{% for vacuumbag in vacuumbags %}
 			</thead>
 			<tbody>
+				{% for vacuumbag in vacuumbags %}
 				<tr>
-					<td> {{vacuumbag.supermarket}} </td>
-					<td> {{vacuumbag.vacuum}} </td>
-					<td> 
+					<td class="search-result"> {{vacuumbag.supermarket}} </td>
+					<td class="search-result"> {{vacuumbag.vacuum}} </td>
+					<td class="search-result"> 
 						<svg width="50" height="50">
 							<circle
 								class="purple-circle"
@@ -40,6 +39,5 @@
 				<tr>Entschuldigung: Kein Modell gefunden. </tr>
 			{% endif %}
  		</tbody>
-	</div>
 		</table>
 {% endblock %}
