@@ -1,5 +1,6 @@
 // Select elements in the DOM
 const searchInput = document.getElementById("search-input");
+const table = document.getElementById("table");
 const tableBody = document.getElementById("table-body");
 const tableHead = document.getElementById("table-head");
 
