@@ -1,5 +1,7 @@
 **/__pycache__/
 *.sqlite3
+*.ipynb
+src/.idea
 src/beutelnet/storage/
 .env
-
+src/beutelnet/bagsearch/
