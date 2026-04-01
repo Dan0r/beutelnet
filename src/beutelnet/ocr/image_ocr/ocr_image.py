@@ -47,8 +47,6 @@ class ProcessImage:
     Scan directory for images
     Return dictionary{name of supermarket, name of vacuum model, size of vacuum bag}
     """
-
-
     def scan_dir(self):
         result = [] 
         for path in self.directory.iterdir():
