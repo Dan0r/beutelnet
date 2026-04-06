@@ -1,7 +1,10 @@
 **/__pycache__/
 *.sqlite3
 *.ipynb_checkpoints
+*.ipynb
 src/.idea
 *.html
+*.csv
+*.jpg
 .env
 src/beutelnet/bagsearch/
