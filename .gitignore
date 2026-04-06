@@ -1,8 +1,8 @@
 **/__pycache__/
 *.sqlite3
-*.ipynb
 *.ipynb_checkpoints
 src/.idea
-src/beutelnet/storage/
+*.html
 .env
 src/beutelnet/bagsearch/
+src/beutelnet/data/
