@@ -5,4 +5,3 @@ src/.idea
 *.html
 .env
 src/beutelnet/bagsearch/
-src/beutelnet/data/
