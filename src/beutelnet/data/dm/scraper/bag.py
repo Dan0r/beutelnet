@@ -4,6 +4,7 @@ from bag_filter import BagFilter
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import (
     presence_of_element_located,
@@ -21,11 +22,13 @@ class Bag(webdriver.Chrome):
         if options is None:
             self.options = Options()
             self.options.add_experimental_option("detach", True)
+            self.options.binary_location = const.BINARY
         else:
             self.options = options
 
         # Instantiates Webdriver
-        super(Bag, self).__init__(options=self.options)
+        service = Service(executable_path=driver_path)
+        super(Bag, self).__init__(options=self.options, service=service)
      
 
     """ Accept cookie """
@@ -75,6 +78,11 @@ class Bag(webdriver.Chrome):
 
 
     """ Return data in product specifications """
-    def filter(self):
+    def filter_products(self):
         filter = BagFilter(driver=self)
-        filter.get_products()
+        filter.filter_products()
+
+    """ Return vacuum bag size """
+    def filter_size(self):
+        filter = BagFilter(driver=self)
+        filter.filter_size()

@@ -1,4 +1,5 @@
 from pathlib import PurePath
+import time
 from bag import Bag
 import constants as const
 
@@ -9,6 +10,6 @@ with Bag() as bag:
     bag.click_cookie()
     bag.load_product_specs(const.PRODUCT_BUTTON)
     bag.load_further_specs()
-    # bag.filter()
+    bag.filter_size()
     print("Exiting ...")
 # Iterate over product tiles, select their button
