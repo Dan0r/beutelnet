@@ -5,7 +5,11 @@ URL = "https://www.dm.de/haushalt/haushaltsartikel/staubsaugerbeutel#finder"
 DRIVER = "/home/furukawa/programming/chrome_for_testing/chromedriver-linux64/chromedriver"
 BINARY = "/home/furukawa/programming/chrome_for_testing/chrome"
 
-# HTML Elements
-FURTHER_PRODUCTS_BUTTON = '[data-dmid="fm-vcbf-vaccummodelslist-button"]'
+# Cookie Elements
+SHADOW_HOST = '[id="usercentrics-root"]'
 COOKIE = '[data-testid="uc-accept-all-button"]'
-SHADOW_HOST = '#usercentrics-root'
+
+# HTML Elements
+PRODUCT_BUTTON = 'button[data-dmid="fm-vcbf-product-footer-button"]'
+FURTHER_PRODUCTS_BUTTON = '[data-dmid="fm-vcbf-vaccummodelslist-button"]'
+PRODUCT_NAMES_BOX = '[data-dmid="layer-content"]'

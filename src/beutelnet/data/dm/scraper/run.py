@@ -1,15 +1,14 @@
-import os
 from pathlib import PurePath
 from bag import Bag
 import constants as const
 
 from selenium import webdriver
 
-product = 'button[data-dmid="fm-vcbf-product-footer-button"]'
 with Bag() as bag:
     bag.load_page()
-    bag.load_product_specs(product)
-    bag.load_further_specs()
     bag.click_cookie()
+    bag.load_product_specs(const.PRODUCT_BUTTON)
+    bag.load_further_specs()
+    # bag.filter()
     print("Exiting ...")
-
+# Iterate over product tiles, select their button
