@@ -36,17 +36,13 @@ class Bag(webdriver.Chrome):
         # Access shadow_root, that contains cookie button
         shadow_root = host.shadow_root
 
-        def get_cookie(driver):
-            try:
-                element = shadow_root.find_element(By.CSS_SELECTOR, const.COOKIE)
-                if element.is_displayed() and element.is_enabled():
-                    return element
-                return False
-            except:
-                return False
+        # Poll DOM for cookie button by executing Lambda every few milliseconds
+        cookie_button = WebDriverWait(self, 5).until(
+            lambda _: shadow_root.find_element(By.CSS_SELECTOR, const.COOKIE)
+            if shadow_root.find_element(By.CSS_SELECTOR, const.COOKIE).is_enabled()
+            else False
+        )
 
-
-        cookie_button = WebDriverWait(self, 10).until(get_cookie)
         cookie_button.click()
 
     """ Close driver in context manager"""
