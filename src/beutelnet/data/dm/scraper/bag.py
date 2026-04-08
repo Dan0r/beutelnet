@@ -1,4 +1,5 @@
 import constants as const
+from grid import Grid 
 from bag_filter import BagFilter
 
 from selenium import webdriver
@@ -15,8 +16,8 @@ from selenium.webdriver import Keys, ActionChains
 
 class Bag(webdriver.Chrome):
 
-    def __init__(self, driver_path=const.DRIVER, options=None, teardown=False):
-        self.driver_path = driver_path
+    def __init__(self, driver=const.DRIVER, options=None, teardown=False):
+        self.driver = driver 
         self.teardown = teardown
 
         if options is None:
@@ -27,23 +28,27 @@ class Bag(webdriver.Chrome):
             self.options = options
 
         # Instantiates Webdriver
-        service = Service(executable_path=driver_path)
+        service = Service(executable_path=driver)
         super(Bag, self).__init__(options=self.options, service=service)
      
 
     """ Accept cookie """
     def click_cookie(self):
         # Poll DOM for cookie button by executing Lambda every few milliseconds
-        cookie_button = WebDriverWait(self, 5).until(
-            # Select Shadow Host
-            lambda d: d.find_element(By.CSS_SELECTOR, const.SHADOW_HOST)
-                # Select Cookie iniside Shadow host
-                # Important: Do all selections within the lambda
-                      .shadow_root
-                      .find_element(By.CSS_SELECTOR, const.COOKIE)
-        )
-        WebDriverWait(self,5).until(lambda d: cookie_button.is_displayed() and cookie_button.is_enabled())
-        cookie_button.click()
+        try:
+            cookie_button = WebDriverWait(self, 5).until(
+                # Select Shadow Host
+                lambda d: d.find_element(By.CSS_SELECTOR, const.SHADOW_HOST)
+                    # Select Cookie iniside Shadow host
+                    # Important: Do all selections within the lambda
+                          .shadow_root
+                          .find_element(By.CSS_SELECTOR, const.COOKIE)
+            )
+            WebDriverWait(self,5).until(lambda d: cookie_button.is_displayed() and cookie_button.is_enabled())
+            cookie_button.click()
+        except Exception as e:
+            print(f"Fehler beim Klicken des Cookie: {e}")
+
 
 
     """ Close driver in context manager"""
@@ -59,11 +64,13 @@ class Bag(webdriver.Chrome):
     """ Open window that shows compatible models """
     def load_product_specs(self, product):
         # Wait for "Passende-Modelle"-Button to be clickable
-        beutel_module = WebDriverWait(self, 5).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, product))
-        )
-
-        beutel_module.click()
+        try: 
+            beutel_module = WebDriverWait(self, 5).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, product))
+            )
+            beutel_module.click()
+        except Exception as e:
+            print(f"Fehler beim Laden von \"Passende Modelle \": {e}")
 
 
     """ Click 'Weitere Modelle' inside of the specifications """
@@ -75,6 +82,12 @@ class Bag(webdriver.Chrome):
             further_products.click()
         except Exception as e:
             print(f"Fehler beim Suchen nach dem Produkt: {e}")
+
+    """ Finds and loads the tiles for each product """
+    def click_products(self):
+        product_grid = self.find_element(By.CSS_SELECTOR, const.PRODUCT_GRID)
+        products = Grid(self.driver, product_grid)
+        products.click_tile()
 
 
     """ Return data in product specifications """

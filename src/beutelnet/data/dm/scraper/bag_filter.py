@@ -10,27 +10,35 @@ import constants as const
 class BagFilter():
     def __init__(self, driver):
         self.driver = driver
+    
+    
 
     """ Return vacuum bag size """
     def filter_size(self):
-        heading = WebDriverWait(self.driver,10).until(
-            presence_of_element_located((By.CSS_SELECTOR, const.SIZE))
-        )
+        try:
+            heading = WebDriverWait(self.driver,10).until(
+                presence_of_element_located((By.CSS_SELECTOR, const.SIZE))
+            )
 
-        size = heading.find_elements(By.TAG_NAME, "h2")
+            size = heading.find_elements(By.TAG_NAME, "h2")
 
-        for s in size:
-            print(s.text.strip())
+            for s in size:
+                print(s.text.strip())
+        except Exception as e:
+            print(f"Fehler beim Filtern der Staubsaugerbeutel-Größe: {e}")
 
-    """ Return product names """
+    """ Return product and brand names """
     def filter_products(self):
-        product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
-        elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
+        try:
+            product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
+            elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
 
-        for element in elements:
-            if element.tag_name == 'h4':
-                print(element.text.strip().upper())
-            elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
-                print(element.get_attribute('alt'))
-            elif element.tag_name == 'p':
-                print(element.text.strip())
+            for element in elements:
+                if element.tag_name == 'h4':
+                    print(element.text.strip().upper())
+                elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
+                    print(element.get_attribute('alt').strip())
+                elif element.tag_name == 'p':
+                    print(element.text.strip())
+        except Exception as e:
+            print(f"Fehler beim Filtern der Produkt- und Herstellernamen: {e}")
