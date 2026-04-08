@@ -3,6 +3,7 @@ import time
 from browser import Browser
 from page import Page
 from grid import Grid
+from tilefilter import TileFilter
 import constants as const
 
 from selenium import webdriver
@@ -22,16 +23,7 @@ with Browser() as driver:
     for tile in tiles:
         tile.expand()
         tile.load_further_specs()
-        time.sleep(2)
+        time.sleep(1)
+        filter = TileFilter(driver, tile.tile)
+        filter.filter_size()
         tile.exit()
-
-#     bag.load_page()
-#     bag.click_cookie()
-#     bag.click_products()
-#
-#     # bag.load_product_specs(const.PRODUCT_BUTTON)
-#     # bag.load_further_specs()
-#     # bag.filter_size()
-#     # bag.filter_products()
-#     print("Exiting ...")
-# # Iterate over product tiles, select their button

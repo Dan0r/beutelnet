@@ -60,6 +60,7 @@ class Tile:
     def _get_button(self):
         return self.tile.find_element(By.CSS_SELECTOR, const.PRODUCT_BUTTON)
 
+
     def _get_exit_button(self):
         return WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, const.CLOSE_BUTTON))
