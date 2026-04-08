@@ -11,5 +11,6 @@ with Bag() as bag:
     bag.load_product_specs(const.PRODUCT_BUTTON)
     bag.load_further_specs()
     bag.filter_size()
+    bag.filter_products()
     print("Exiting ...")
 # Iterate over product tiles, select their button

@@ -25,12 +25,12 @@ class BagFilter():
     """ Return product names """
     def filter_products(self):
         product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
-        elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4")
-
-        # get image alt as well
+        elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
 
         for element in elements:
             if element.tag_name == 'h4':
-                print(element.get_attribute('innerHTML').strip().upper())
+                print(element.text.strip().upper())
+            elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
+                print(element.get_attribute('alt'))
             elif element.tag_name == 'p':
-                print(element.get_attribute('innerHTML').strip())
+                print(element.text.strip())
