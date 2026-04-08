@@ -20,7 +20,9 @@ with Browser() as driver:
     tiles = grid.get_tiles()
 
     for tile in tiles:
-        tile.click()
+        tile.expand()
+        tile.load_further_specs()
+        time.sleep(2)
         tile.exit()
 
 #     bag.load_page()

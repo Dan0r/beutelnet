@@ -10,8 +10,6 @@ import constants as const
 class BagFilter():
     def __init__(self, driver):
         self.driver = driver
-    
-    
 
     """ Return vacuum bag size """
     def filter_size(self):
