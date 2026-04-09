@@ -60,7 +60,6 @@ def scrape_text() -> list[str]:
 """ Create CSV from scraped data """
 def create_csv() -> None:
     scrape_output = scrape_text()
-    print(scrape_output[0].keys())
 
     if not scrape_output:
         print("No text input from html")

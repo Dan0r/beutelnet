@@ -57,7 +57,7 @@ class Tile:
             print(f"Exit button was not clicked {e}")
 
     """ Return vacuum bag size """
-    def filter_size(self):
+    def filter_size(self) -> str:
         try:
             # Element is in MODULE_CONTAINER but not TILE 
             heading = WebDriverWait(self.driver, 5).until(
@@ -65,27 +65,30 @@ class Tile:
             )
 
             size = heading.find_elements(By.TAG_NAME, "h2")
-
-            for s in size:
-                print(s.text.strip())
+            # Return first element in list
+            return size[0].text.strip()
 
         except Exception as e:
             print(f"Fehler beim Filtern der Staubsaugerbeutel-Größe: {e}")
 
     """ Return product and brand names """
-    def filter_products(self):
+    def filter_products(self) -> list[str]:
         try:
             ## In the DOM: product_name_box is child of ProductModule but not Tile
             product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
             elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
+            
+            res = []
 
             for element in elements:
                 if element.tag_name == 'h4':
-                    print(element.text.strip().upper())
+                    res.append(element.text.strip().upper())
                 elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
-                    print(element.get_attribute('alt').strip())
+                    res.append(element.get_attribute('alt').strip().upper())
                 elif element.tag_name == 'p':
-                    print(element.text.strip())
+                    res.append(element.text.strip())
+
+            return res
 
         except Exception as e:
             print(f"Fehler beim Filtern der Produkt- und Herstellernamen: {e}")
