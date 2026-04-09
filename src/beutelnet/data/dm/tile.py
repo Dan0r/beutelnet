@@ -80,11 +80,12 @@ class Tile:
             
             res = []
 
+            # Decide better identifier for brands !
             for element in elements:
                 if element.tag_name == 'h4':
-                    res.append(element.text.strip().upper())
+                    res.append(f"brand:{element.text.strip()}")
                 elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
-                    res.append(element.get_attribute('alt').strip().upper())
+                    res.append(f"brand:{element.get_attribute('alt').strip()}")
                 elif element.tag_name == 'p':
                     res.append(element.text.strip())
 

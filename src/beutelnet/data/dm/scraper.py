@@ -28,7 +28,7 @@ def scrape_text() -> list[dict[str,str]]:
             vacuums = tile.filter_products()
             for vacuum in vacuums:
                 res.append({
-                    "supermarket":"REWE",
+                    "supermarket":"DM",
                     "size": size,
                     "vacuum": vacuum
                 })
