@@ -15,7 +15,7 @@ class TileFilter():
         self.tile = tile 
 
     """ Return vacuum bag size """
-    def filter_size(self):
+    def size(self):
         try:
             heading = WebDriverWait(self.driver, 10).until(
                 presence_of_element_located((By.CSS_SELECTOR, const.SIZE))
@@ -28,19 +28,20 @@ class TileFilter():
 
         except Exception as e:
             print(f"Fehler beim Filtern der Staubsaugerbeutel-Größe: {e}")
-    #
-    # """ Return product and brand names """
-    # def filter_products(self):
-    #     try:
-    #         product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
-    #         elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
-    #
-    #         for element in elements:
-    #             if element.tag_name == 'h4':
-    #                 print(element.text.strip().upper())
-    #             elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
-    #                 print(element.get_attribute('alt').strip())
-    #             elif element.tag_name == 'p':
-    #                 print(element.text.strip())
-    #     except Exception as e:
-    #         print(f"Fehler beim Filtern der Produkt- und Herstellernamen: {e}")
+
+    """ Return product and brand names """
+    def filter_products(self):
+        try:
+            product_name_box = self.tile.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
+            elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
+
+            for element in elements:
+                if element.tag_name == 'h4':
+                    print(element.text.strip().upper())
+                elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
+                    print(element.get_attribute('alt').strip())
+                elif element.tag_name == 'p':
+                    print(element.text.strip())
+
+        except Exception as e:
+            print(f"Fehler beim Filtern der Produkt- und Herstellernamen: {e}")

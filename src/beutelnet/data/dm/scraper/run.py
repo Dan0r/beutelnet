@@ -2,8 +2,7 @@ from pathlib import PurePath
 import time
 from browser import Browser
 from page import Page
-from grid import Grid
-from tilefilter import TileFilter
+from productmodule import ProductModule 
 import constants as const
 
 from selenium import webdriver
@@ -15,15 +14,17 @@ with Browser() as driver:
     page.cookie()
 
 
-    product_grid = driver.find_element(By.CSS_SELECTOR, const.PRODUCT_GRID)
+    product_module = driver.find_element(By.XPATH, const.PRODUCT_MODULE)
+    print(product_module)
 
-    grid = Grid(driver, product_grid)
+    grid = ProductModule(driver, product_module)
     tiles = grid.get_tiles()
+    print(tiles)
 
     for tile in tiles:
         tile.expand()
         tile.load_further_specs()
         time.sleep(1)
-        filter = TileFilter(driver, tile.tile)
-        filter.filter_size()
+        tile.size()
         tile.exit()
+

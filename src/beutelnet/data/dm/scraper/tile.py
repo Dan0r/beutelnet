@@ -56,6 +56,18 @@ class Tile:
         except Exception as e:
             print(f"Exit button was not clicked {e}")
 
+    """ Return vacuum bag size """
+    def size(self):
+        try:
+            heading = self.tile.find_element(By.CSS_SELECTOR, const.SIZE)
+
+            size = heading.find_elements(By.TAG_NAME, "h2")
+
+            for s in size:
+                print(s.text.strip())
+
+        except Exception as e:
+            print(f"Fehler beim Filtern der Staubsaugerbeutel-Größe: {e}")
 
     def _get_button(self):
         return self.tile.find_element(By.CSS_SELECTOR, const.PRODUCT_BUTTON)
