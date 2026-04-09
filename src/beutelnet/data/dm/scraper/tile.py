@@ -60,7 +60,9 @@ class Tile:
     def filter_size(self):
         try:
             # Element is in MODULE_CONTAINER but not TILE 
-            heading = self.driver.find_element(By.CSS_SELECTOR, const.SIZE)
+            heading = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, const.SIZE))
+            )
 
             size = heading.find_elements(By.TAG_NAME, "h2")
 
