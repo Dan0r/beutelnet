@@ -15,16 +15,14 @@ with Browser() as driver:
 
 
     product_module = driver.find_element(By.XPATH, const.PRODUCT_MODULE)
-    print(product_module)
 
     grid = ProductModule(driver, product_module)
     tiles = grid.get_tiles()
-    print(tiles)
 
     for tile in tiles:
         tile.expand()
         tile.load_further_specs()
-        time.sleep(1)
-        tile.size()
+        tile.filter_size()
+        tile.filter_products()
         tile.exit()
 

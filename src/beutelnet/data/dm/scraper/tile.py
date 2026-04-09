@@ -57,9 +57,10 @@ class Tile:
             print(f"Exit button was not clicked {e}")
 
     """ Return vacuum bag size """
-    def size(self):
+    def filter_size(self):
         try:
-            heading = self.tile.find_element(By.CSS_SELECTOR, const.SIZE)
+            # Element is in MODULE_CONTAINER but not TILE 
+            heading = self.driver.find_element(By.CSS_SELECTOR, const.SIZE)
 
             size = heading.find_elements(By.TAG_NAME, "h2")
 
@@ -68,6 +69,24 @@ class Tile:
 
         except Exception as e:
             print(f"Fehler beim Filtern der Staubsaugerbeutel-Größe: {e}")
+
+    """ Return product and brand names """
+    def filter_products(self):
+        try:
+            ## In the DOM: product_name_box is child of ProductModule but not Tile
+            product_name_box = self.driver.find_element(By.CSS_SELECTOR, const.PRODUCT_NAMES_BOX)
+            elements = product_name_box.find_elements(By.CSS_SELECTOR, "p, h4, img")
+
+            for element in elements:
+                if element.tag_name == 'h4':
+                    print(element.text.strip().upper())
+                elif element.tag_name == 'img' and element.get_attribute('class') == const.BRAND_IMAGE:
+                    print(element.get_attribute('alt').strip())
+                elif element.tag_name == 'p':
+                    print(element.text.strip())
+
+        except Exception as e:
+            print(f"Fehler beim Filtern der Produkt- und Herstellernamen: {e}")
 
     def _get_button(self):
         return self.tile.find_element(By.CSS_SELECTOR, const.PRODUCT_BUTTON)

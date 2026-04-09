@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 class ProductModule:
+
     """ Represents DM product module, that contains multiple products """
     def __init__(self, driver, product_grid:WebElement):
         self.driver = driver
@@ -24,9 +25,9 @@ class ProductModule:
 
         return elements
 
-    """ After clicking on \"Passende Modelle \" this function returns 
-        the box containing the product size, names, brands """
-    def get_specifications(self): 
+    # """ After clicking on \"Passende Modelle \" this function returns 
+    #     the box containing the product size, names, brands """
+    # def get_specifications(self): 
 
 
     def click_all_tiles(self):
